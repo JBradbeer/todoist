@@ -81,6 +81,8 @@ def jira_search(auth, jql):
 def main():
     td = Todoist(keychain("todoist-api"))
     auth = base64.b64encode(f"{JIRA_EMAIL}:{keychain('jira-api')}".encode()).decode()
+    # Jira answers searches with bad credentials as anonymous (empty results), so check auth explicitly.
+    request(f"{JIRA_SITE}/rest/api/3/myself", {"Authorization": f"Basic {auth}"})
 
     project_id = next(p["id"] for p in td.get_all("projects") if p["name"] == PROJECT)
     tasks = {}
