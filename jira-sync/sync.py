@@ -113,7 +113,7 @@ def main():
         if task is None:
             if done:
                 continue
-            content = f"[{key}]({JIRA_SITE}/browse/{key}) {sentence_case(issue['fields']['summary'])}"
+            content = f"[[{key}]({JIRA_SITE}/browse/{key})] {sentence_case(issue['fields']['summary'])}"
             td.post("tasks", {"content": content, "project_id": project_id,
                               "section_id": section_for(status["name"])})
             log(f"added {key}")
