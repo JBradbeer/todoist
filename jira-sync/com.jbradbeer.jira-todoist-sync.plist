@@ -6,7 +6,7 @@
     <string>com.jbradbeer.jira-todoist-sync</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/jbradbeer/github.com/JBradbeer/todoist/jira-sync/sync.py</string>
+        <string>/Users/jbradbeer/IdeaProjects/todoist/jira-sync/sync.py</string>
     </array>
     <key>StartInterval</key>
     <integer>3600</integer>
