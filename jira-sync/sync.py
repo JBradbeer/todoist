@@ -113,7 +113,7 @@ def main():
         if task is None:
             if done:
                 continue
-            content = f"[{key.lower()}]({JIRA_SITE}/browse/{key}) {issue['fields']['summary'].lower()}"
+            content = f"[{key}]({JIRA_SITE}/browse/{key}) {sentence_case(issue['fields']['summary'])}"
             td.post("tasks", {"content": content, "project_id": project_id,
                               "section_id": section_for(status["name"])})
             log(f"added {key}")
@@ -131,6 +131,15 @@ def main():
         if sid not in used:
             td.delete(f"sections/{sid}")
             log(f"removed empty section '{name}'")
+
+
+def sentence_case(text):
+    """Lowercase every word except the first and all-caps acronyms (SUR, API)."""
+    def fix(m):
+        w = m.group(0)
+        return w if len(w) > 1 and w.isupper() else w.lower()
+    text = re.sub(r"[A-Za-z][A-Za-z']*", fix, text)
+    return text[:1].upper() + text[1:]
 
 
 def log(msg):
